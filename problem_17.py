@@ -2,7 +2,7 @@ import problem_17_supplementary
 
 class CreateDict:
 
-    def __init__(self, dict_with_letters: dict ):
+    def __init__(self, dict_with_letters: dict):
         self.temp_numbers_dict = {}
         self.letters_dict = dict_with_letters
         self.numbers_dict = self.convert_to_numbers_dict()
@@ -22,7 +22,7 @@ class Number:
 
     def __init__(self, number):
         self.str_number = str(number)
-        print("the string is", self.str_number)
+        # print("the string is", self.str_number)
 
         if len(self.str_number) == 3:
             self.hundreds_digit = self.str_number[0]
@@ -44,12 +44,15 @@ class Number:
         # if len(self.str_number) > 2:
         #     self.hundreds_digit = self.str_number[2]
         self.letters_count_in_number = self.count_number_digits()
-        print("the added count", self.letters_count_in_number)
+        # print("the added count", self.letters_count_in_number)
 
     def count_number_digits(self):
         temp_count = 0
+        # for 1000
+        if len(self.str_number) == 4:
+            temp_count += len("onethousand")
         # for 100,200,300 ...
-        if len(self.str_number) == 3:
+        elif len(self.str_number) == 3:
             if self.tens_digit == '0' and self.unity_digit == '0':
                 temp_count += hundred_dict.numbers_dict[self.hundreds_digit]-3
             # for #10, #11, #12 ...
@@ -68,8 +71,6 @@ class Number:
             elif self.tens_digit == '0':
                 temp_count += hundred_dict.numbers_dict[self.hundreds_digit]
                 temp_count += unit_dict.numbers_dict[self.unity_digit]
-
-
         elif len(self.str_number) == 2:
             # print(self.tens_digit)
             # for 10, 11 ,12
@@ -110,8 +111,7 @@ class Counter:
 
     def increase_counter(self, number_to_add):
         self.sum_of_letter_count += number_to_add
-        print("the sum so far", self.sum_of_letter_count)
-
+        # print("the sum so far", self.sum_of_letter_count)
 
 
 unit_dict = CreateDict(problem_17_supplementary.UNITY_DICT)
@@ -124,22 +124,28 @@ hundred_dict = CreateDict(problem_17_supplementary.HUNDREDS_DICT)
 print(hundred_dict.numbers_dict)
 
 
+def main(max_num):
+    my_counter = Counter()
+    for looped_number in range(1, max_num+1):
+        number_instance = Number(looped_number)
+        my_counter.increase_counter(number_instance.letters_count_in_number)
+        # print("---------------------------------------------")
+    res = my_counter.sum_of_letter_count
+    print(res)
+    return res
 
-my_counter = Counter()
-for looped_number in range(1, 1000):
-    number_instance = Number(looped_number)
-    my_counter.increase_counter(number_instance.letters_count_in_number)
-    print("---------------------------------------------")
-print(my_counter.sum_of_letter_count + len("onethousand"))
+    # one_to_nine = (0, 3, 3, 5, 4, 4, 3, 5, 5, 4) # 1 to 9
+    # ten_to_ninety = (0, 3, 6, 6, 5, 5, 5, 7, 6, 6) # 10 to 90
+    # eleven_to_nineteen = (0, 6, 6, 8, 8, 7, 7, 9, 8, 8) # 11 to 19
+    # spacial = (7, 10, 11) # hundred, hundred and, one thousand
+    #
+    # sum_1_to_99 = (sum(one_to_nine)*9 + ten_to_ninety[1] + sum(eleven_to_nineteen) + sum(ten_to_ninety[2:])*10)*10
+    # sum_100_to_900 = spacial[0]*9 + spacial[1]*99*9 + sum(one_to_nine)*100
+    #
+    # total = sum_1_to_99 + sum_100_to_900 + spacial[2]
+    #
+    # print("the total is", total)
 
-one_to_nine = (0, 3, 3, 5, 4, 4, 3, 5, 5, 4) # 1 to 9
-ten_to_ninety = (0, 3, 6, 6, 5, 5, 5, 7, 6, 6) # 10 to 90
-eleven_to_nineteen = (0, 6, 6, 8, 8, 7, 7, 9, 8, 8) # 11 to 19
-spacial = (7, 10, 11) # hundred, hundred and, one thousand
 
-sum_1_to_99 = (sum(one_to_nine)*9 + ten_to_ninety[1] + sum(eleven_to_nineteen) + sum(ten_to_ninety[2:])*10)*10
-sum_100_to_900 = spacial[0]*9 + spacial[1]*99*9 + sum(one_to_nine)*100
-
-total = sum_1_to_99 + sum_100_to_900 + spacial[2]
-
-print("the total is", total)
+if __name__ == "__main__":
+    main(1000)

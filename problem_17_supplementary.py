@@ -27,7 +27,7 @@ AFTERONES_DICT = {
 TENS_DICT = {
     "2":"Twenty",
     "3":"Thirty",
-    "4":"Fourty",
+    "4":"Forty",
     "5":"Fifty",
     "6":"Sixty",
     "7":"Seventy",
