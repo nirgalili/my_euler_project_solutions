@@ -73,7 +73,6 @@ def test_node_get_parents_4th_row_1_parent_last():
     print(parents_score)
     assert parents_score == [10]
 
-
 def test_node_new_scoe():
     triangle_lists = [
         [1],
