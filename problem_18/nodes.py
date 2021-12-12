@@ -10,7 +10,7 @@ class Node:
         if self.row == 0: # first row has no parents
             temp_parents_list = [0]
         elif self.row == 1: # second row has single parent
-            temp_parents_list = [score_triangle_lists[0]]
+            temp_parents_list = score_triangle_lists[0]
         elif self.location_in_list == 0:
             temp_parents_list = [score_triangle_lists[self.row-1][0]]
         elif self.location_in_list == len(score_triangle_lists[self.row])-1:
@@ -27,4 +27,5 @@ class Node:
         temp_new_score = bigger_parent+self.value
         self.score = temp_new_score
         return temp_new_score
+
 
